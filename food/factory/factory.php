@@ -42,6 +42,7 @@ class factory extends limitable implements json_format
             '","payment_time":"' . json_output::filter($this->payment_time) .
             '","upper_bound":"' . json_output::filter($this->upper_bound) .
             '","minimum":"' . json_output::filter($this->minimum) .
+            '","boss_id":"' . json_output::filter($this->boss_id) .
             '","daily_produce":"' . json_output::filter($this->limit) .
             '","remaining":"' . json_output::filter($this->get_remaining()) .
             '","allow_custom":"' . ($this->allow_custom ? "true" : "false") . '"}';
