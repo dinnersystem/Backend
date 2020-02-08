@@ -10,7 +10,14 @@ function payment_auth($row ,$target ,$password ,$req_id)
 		\punish\attempt($row->user->id ,$req_id ,"payment");
 		throw new \Exception("Wrong password");
 	}
-		
+	
+	# reversable control
+	if(!$target && !$row->money->payment["payment"]->reversable)
+		throw new \Exception("Payment is unreversable.");
+
+	# config control
+	if(\config()["enviroment"]["check_payment_time"] === false) return true;
+
 	# today control
 	if(date("Y-m-d" ,strtotime($row->esti_recv)) != date("Y-m-d"))
 		throw new \Exception("Only allow payment for today");
@@ -22,9 +29,7 @@ function payment_auth($row ,$target ,$password ,$req_id)
 		$row->money->payment["payment"]->freeze_dt
 	)) throw new \Exception("The payment has expired or it's not yet to pay.");
 
-	# reversable control
-	if(!$target && !$row->money->payment["payment"]->reversable)
-		throw new \Exception("Payment is unreversable.");
+	
 	return true;
 }
 

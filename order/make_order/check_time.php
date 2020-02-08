@@ -1,9 +1,10 @@
 <?php
 namespace order\make_order;
 
-function check_time($dishes ,$esti_recv)
-{
+function check_time($dishes ,$esti_recv) {
     $recv = \other\date_api::is_valid_time($esti_recv);
+    if(\config()["enviroment"]["check_order_time"] === false) return true;
+
     $date = $recv->format("Y-m-d");
     if($date !== date("Y-m-d"))
         throw new \Exception("Not allow order at tomorrow");

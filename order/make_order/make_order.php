@@ -13,7 +13,7 @@ function make_order($target_id ,$dishes ,$esti_recv ,$type)
     $self_id = unserialize($_SESSION['me'])->id;
 
     /*-------------------------------------------*/
-    $dstring = get_dish_string($dishes); 
+    $dstring = check_valid::regex_check(get_dish_string($dishes) ,check_valid::$int_set_regex);
     # This might be vulnerable if dish->id could be any string.
     /*-------------------------------------------*/
 

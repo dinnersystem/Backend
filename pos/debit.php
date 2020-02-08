@@ -1,8 +1,9 @@
 <?php
 namespace pos;
 
-function debit($row ,$req_id)
-{
+function debit($row ,$req_id) {
+    if(config()["enviroment"]["fake_bank"]["enable"] === true) return true;
+
     $self = unserialize($_SESSION["me"]);
     $bank = $self->bank_id;
     $ip = config()["bank"]["ip"];

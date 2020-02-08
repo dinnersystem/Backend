@@ -62,16 +62,15 @@ function update_dish() {
 function show_order() {
     $param = $this->input;
     $param['user_id'] = strval(unserialize($_SESSION['me'])->id);
-    switch($this->input['cmd'])
-    {
+    switch($this->input['cmd']) {
         case 'select_self':
-            $param['person'] = true;
+            $param['person'] = true; 
             break;
         case 'select_class':
-            $param['class'] = true;
+            $param['class'] = true; 
             break;
         case 'select_facto':
-            $param['factory_id'] = \order\select_order\get_factory_id($param["user_id"]);
+            $param['factory'] = true; 
             break;
         case 'select_other':
             break;

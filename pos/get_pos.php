@@ -1,9 +1,15 @@
 <?php
 namespace pos;
 
-function get_pos()
-{;
+function get_pos() {
     $self = unserialize($_SESSION["me"]);
+
+    $conf = config()["enviroment"]["fake_bank"];
+    if($conf["enable"] === true) {
+        $self->pos_init($conf["fake_money"] ,$conf["fake_cardno"]);
+        return $self;
+    }
+
     $bank = $self->bank_id;
     $ip = config()["bank"]["ip"];
     $port = config()["bank"]["port"];

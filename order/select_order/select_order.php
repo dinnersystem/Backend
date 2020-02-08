@@ -10,6 +10,7 @@ function select_order($param)
     if($param['esti_start'] ?? NULL != null) $param['esti_start'] = date_api::is_valid_time($param['esti_start'])->format('Y/m/d-H:i:s');
     if($param['esti_end'] ?? NULL != null) $param['esti_end'] = date_api::is_valid_time($param['esti_end'])->format('Y/m/d-H:i:s');
     $param['factory_id'] = check_valid::white_list_null($param['factory_id'] ?? NULL ,check_valid::$only_number);
+    $param['factory'] = check_valid::bool_null_check($param['factory'] ?? NULL);
     $param['person'] = check_valid::bool_null_check($param['person'] ?? NULL);
     $param['class'] = check_valid::bool_null_check($param['class'] ?? NULL);
     $param['oid'] = check_valid::white_list_null($param['oid'] ?? NULL ,check_valid::$only_number);
