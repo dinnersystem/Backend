@@ -33,9 +33,7 @@ function check_dish($dishes) {
         $ret[] = $dish;
     }
 
-    foreach($count as $item)
-        if($item > 5)
-            throw new \Exception("Too much ingredients.");
+    foreach($count as $item) if($item > 5) throw new \Exception("Too much ingredients.");
 
     $sum = 0;
     foreach($dishes as $did)

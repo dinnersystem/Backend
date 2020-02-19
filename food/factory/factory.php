@@ -14,7 +14,7 @@ class factory extends limitable implements json_format {
         $this->lower_bound = $lower_bound;
         $this->prepare_time = $prepare_time;
         $this->upper_bound = $upper_bound;
-        $this->$avail_upper_bound = $avail_upper_bound;
+        $this->avail_upper_bound = $avail_upper_bound;
         $this->payment_time = $payment_time;
         $this->boss_id = $boss_id;
         $this->allow_custom = $allow_custom;
