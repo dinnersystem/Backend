@@ -22,13 +22,15 @@ class operation
             'change_password' => 'change_password',
             'show_dish' => 'show_dish',
             'select_class' => 'show_order',
+            'show_factory' => 'show_factory'
         ],
         'cafeteria' => [
             'change_password' => 'change_password',
             'show_dish' => 'show_dish',
             'update_dish' => 'update_dish',
             'select_other' => 'show_order',
-            'delete_everyone' => 'delete_order'
+            'delete_everyone' => 'delete_order',
+            'show_factory' => 'show_factory'
         ],
         'factory' => [
             'change_password' => 'change_password',
@@ -43,6 +45,7 @@ class operation
             'update_dish' => 'update_dish',
             'select_other' => 'show_order' ,
             'delete_everyone' => 'delete_order',
+            'show_factory' => 'show_factory'
         ]
     ];
 
