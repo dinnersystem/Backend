@@ -114,6 +114,10 @@ function error_report() {
     return \other\error_report($this->input['data']);
 }
 
+function show_factory(){
+    return \food\get_factory();
+}
+
 }
 
 ?>
