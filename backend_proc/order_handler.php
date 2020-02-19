@@ -87,11 +87,9 @@ function delete_order() {
     switch($this->input['cmd'])
     {
         case 'delete_self':
-            return \order\delete_order($this->input['order_id'] ,'self');
-            break;
+            return \order\delete_order($this->input['order_id'] ,'self'); break;
         case 'delete_everyone':
-            return \order\delete_order($this->input['order_id'] ,'none');
-            break;
+            return \order\delete_order($this->input['order_id'] ,'none'); break;
     }
 }
 
@@ -99,9 +97,7 @@ function get_pos() { return \pos\get_pos(); }
 
 function error_report() { return \other\error_report($this->input['data']); }
 
-function show_factory(){
-    return \food\get_factory();
-}
+function show_factory(){ return \food\get_factory(); }
 
 }
 
