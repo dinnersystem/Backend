@@ -20,7 +20,7 @@ function get_factory()
     $result = [];
     while($statement->fetch()) {
         $result[$fid] = new factory($fid ,$fname ,
-            $lower_bound ,$pre_time ,$upper_bound ,$payment_time,$avail_upper_bound ,
+            $lower_bound ,$pre_time ,$upper_bound ,$avail_upper_bound ,$payment_time ,
             $boss_id ,$allow_custom ,$minimum , $pos_id
         );
     }
