@@ -4,18 +4,7 @@ namespace food;
 use json\json_output;
 use json\json_format;
 
-class factory extends limitable implements json_format
-{
-    public $id;
-    public $name;
-    public $lower_bound;
-    public $prepare_time;
-    public $upper_bound;
-    public $disabled;
-    public $boss_id;
-    public $allow_custom;
-    public $pos_id;
-
+class factory extends limitable implements json_format {
     public function __construct($id ,$name ,
         $lower_bound ,$prepare_time ,$upper_bound ,$payment_time ,
         $boss_id ,$allow_custom ,$minimum ,$pos_id)

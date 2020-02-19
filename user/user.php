@@ -4,8 +4,7 @@ namespace user;
 use json\json_output;
 use json\json_format;
 
-class user implements json_format
-{
+class user implements json_format {
     public $id;
     public $name;
     public $class;
@@ -26,27 +25,23 @@ class user implements json_format
     public $prev = [];
     public $services_output = [];
     
-    function __construct($usr_id ,$name ,$class ,$seat_no)
-    {
+    function __construct($usr_id ,$name ,$class ,$seat_no) {
         $this->id = $usr_id;
         $this->name = $name;
-        $this->class= $class;
+        $this->class = $class;
         $this->seat_no = $seat_no;
         $this->is_vege = new \food\vege(null ,null);
     }
     
-    public function full_init()
-    {
+    public function full_init() {
         $services = \user\get_able_oper($this->prev_sum);
         $prev = \user\previleges::get_prevs($this->prev_sum);
         $this->services = $services;
         $this->prev = $prev;
-        foreach($services as $key => $value) 
-            $this->services_output[] = $key;
+        foreach($services as $key => $value) $this->services_output[] = $key;
     }
 
-    public function private_init($prev_sum ,$vege ,$login_id ,$bank_id ,$password ,$PIN ,$daily_limit ,$data_collected)
-    {
+    public function private_init($prev_sum ,$vege ,$login_id ,$bank_id ,$password ,$PIN ,$daily_limit ,$data_collected) {
         $this->prev_sum = $prev_sum;
         $this->is_vege = $vege;
         $this->login_id = $login_id;
@@ -58,22 +53,19 @@ class user implements json_format
         $this->full_init();
     }
 
-    public function pos_init($money ,$card)
-    {
+    public function pos_init($money ,$card) {
         $this->money = $money;
         $this->card = $card;
     }
 
-    public static function get_guest()
-    {
+    public static function get_guest() {
         $user = new user(null ,null ,null ,null);
         $user->prev_sum = 1;
         $user->full_init();
         return $user;
     }
     
-    public function get_json()
-    {
+    public function get_json() {
         $data = 
             '{"id":"' . json_output::filter($this->id) . 
             '","name":"' . json_output::filter($this->name) .

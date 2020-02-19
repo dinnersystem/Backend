@@ -1,12 +1,7 @@
 <?php
 namespace food;
 
-class buffet
-{
-    public $id;
-    public $dish;
-    public $order;
-
+class buffet {
     public function __construct($id ,$dish ,$order)
     {
         $this->id = $id;

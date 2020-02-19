@@ -4,16 +4,7 @@ namespace food;
 use json\json_output;
 use json\json_format;
 
-class dish extends limitable implements json_format
-{
-    public $id;
-    public $name;
-    public $charge;
-    public $vege;
-    public $department;
-    public $is_idle;
-    public $best_seller;
-    
+class dish extends limitable implements json_format {
     public function __construct($id ,$name ,$charge ,$is_idle ,$department ,$is_vege)
     {
         $this->id = $id;

@@ -2,20 +2,16 @@
 namespace backend_proc;
 
 
-class order_handler
-{
-
+class order_handler {
 public $input;
 public $req_id;
 
 function __construct($input) {
     session_start();
     \other\init_server();
-    if($input["cmd"] != "login")
-        session_write_close();
+    if($input["cmd"] != "login") session_write_close();
 
-    if(!array_key_exists('me' ,$_SESSION))
-        $_SESSION['me'] = serialize(\user\user::get_guest());
+    if(!array_key_exists('me' ,$_SESSION)) $_SESSION['me'] = serialize(\user\user::get_guest());
     $this->input = $input;
 }
 
@@ -41,14 +37,9 @@ function login() {
         $this->req_id);
 }
 
-function logout()  {
-    \user\logout();
-    return "Successfully logout.";
-}
+function logout()  { \user\logout(); return "Successfully logout."; }
 
-function show_dish() {
-    return \food\show_dish($this->input['sortby']);
-}
+function show_dish() { return \food\show_dish($this->input['sortby']); }
 
 function update_dish() {
     return \food\update_dish($this->input['id'] ,
@@ -90,9 +81,7 @@ function set_payment() {
         $target);
 }
 
-function change_password() {
-    return \user\change_password($this->input['old_pswd'] ,$this->input['new_pswd']);
-}
+function change_password() { return \user\change_password($this->input['old_pswd'] ,$this->input['new_pswd']); }
     
 function delete_order() {
     switch($this->input['cmd'])
@@ -106,13 +95,9 @@ function delete_order() {
     }
 }
 
-function get_pos() {
-    return \pos\get_pos();
-}
+function get_pos() { return \pos\get_pos(); }
 
-function error_report() {
-    return \other\error_report($this->input['data']);
-}
+function error_report() { return \other\error_report($this->input['data']); }
 
 }
 

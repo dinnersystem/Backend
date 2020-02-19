@@ -18,8 +18,7 @@ function get_factory()
     );
     
     $result = [];
-    while($statement->fetch())
-    {
+    while($statement->fetch()) {
         $result[$fid] = new factory($fid ,$fname ,
             $lower_bound ,$pre_time ,$upper_bound ,$payment_time,
             $boss_id ,$allow_custom ,$minimum , $pos_id

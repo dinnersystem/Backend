@@ -13,8 +13,7 @@ function get_user_id($seat_id ,$type)
             break;
     }
 
-    $sql_command = "SELECT U.id FROM users AS U ,user_information AS UI
-        WHERE UI.seat_id = ? AND UI.id = U.info_id;";
+    $sql_command = "SELECT U.id FROM users AS U ,user_information AS UI WHERE UI.seat_id = ? AND UI.id = U.info_id;";
     
     $mysqli = $_SESSION['sql_server'];
     $statement = $mysqli->prepare($sql_command);

@@ -4,12 +4,7 @@ namespace food;
 use json\json_format;
 use json\json_output;
 
-class department implements json_format
-{
-    public $id;
-    public $name;
-    public $factory;
-    
+class department implements json_format {
     public function __construct($id ,$name ,$factory)
     {
         $this->id = $id;

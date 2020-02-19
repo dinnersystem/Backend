@@ -4,11 +4,7 @@ namespace food;
 use json\json_output;
 use json\json_format;
 
-class vege implements json_format
-{
-    public $number;
-    public $name;
-
+class vege implements json_format {
     public static $vege_adapt = [
         'PURE' => 2 ,
         'VEGE' => 1 ,

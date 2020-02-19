@@ -2,13 +2,10 @@
 namespace order\make_order;
 use \other\check_valid;
 
-function check_dish($dishes)
-{
-    if(!is_array($dishes))
-        throw new \Exception("Must input as an array.");
+function check_dish($dishes) {
+    if(!is_array($dishes)) throw new \Exception("Must input as an array.");
     
-    if(count($dishes) == 0) 
-        throw new \Exception("No dish data.");
+    if(count($dishes) == 0) throw new \Exception("No dish data.");
     
     $ret = [];
     $count = [];

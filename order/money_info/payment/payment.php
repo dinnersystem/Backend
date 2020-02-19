@@ -4,21 +4,8 @@ namespace order\money_info;
 use json\json_output;
 use json\json_format;
 
-class payment implements json_format
-{
-    public $id;
-    public $paid;
-    
-    public $able_dt;
-    public $paid_dt;
-    public $freeze_dt;
-    
-    public $name;
-
-    public $reversable;
-    
-    function __construct($id ,$paid ,$able_dt ,$paid_dt ,$freeze_dt ,$name ,$reversable)
-    {
+class payment implements json_format{    
+    function __construct($id ,$paid ,$able_dt ,$paid_dt ,$freeze_dt ,$name ,$reversable) {
         $this->id = $id;
         $this->paid = $paid;
         $this->able_dt = $able_dt;
