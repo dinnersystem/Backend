@@ -29,8 +29,7 @@ function make_order($target_id ,$dishes ,$esti_recv ,$type)
     if($statement->fetch()) {
         if(is_int($result)) $oid = $result;
         else throw new \Exception($result);
-    }
-    else throw new \Exception("Unable to fetch data from server.");
+    } else throw new \Exception("Unable to fetch data from server.");
     
     while($mysqli->more_results()) $mysqli->next_result();    
     $row = \order\select_order\select_order(['oid' => strval($oid)]); 

@@ -35,9 +35,7 @@ function get_pos() {
     if(!$fp) throw new \Exception("Fetch data timeout");
 
     $data = "";
-    while (!feof($fp)) {
-        $data .= fgets($fp, 128);
-    }
+    while (!feof($fp)) $data .= fgets($fp, 128);
     fclose($fp); 
     $data = json_decode($data ,true);
     $self->pos_init($data["money"] ,$data["cardno"]);
