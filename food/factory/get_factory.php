@@ -7,7 +7,7 @@ function get_factory()
     $sql = "SELECT F.id ,F.name ,
         F.lower_bound ,F.upper_bound ,F.pre_time ,F.payment_time ,F.avail_upper_bound ,
         F.boss_id ,F.allow_custom ,F.minimum ,F.pos_id ,
-        (SELECT organiztion_id FROM users AS U WHERE U.id = F.boss_id)
+        (SELECT organization_id FROM users AS U WHERE U.id = F.boss_id)
         FROM dinnersys.factory AS F;";
     
     $statement = $mysqli->prepare($sql);
