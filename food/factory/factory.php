@@ -4,11 +4,22 @@ namespace food;
 use json\json_output;
 use json\json_format;
 
-class factory extends limitable implements json_format {
-    public function __construct($id ,$name ,
-        $lower_bound ,$prepare_time ,$upper_bound ,$avail_upper_bound ,$payment_time ,
-        $boss_id ,$allow_custom ,$minimum ,$pos_id ,$org_id)
-    {
+class factory extends limitable implements json_format
+{
+    public function __construct(
+        $id ,
+        $name ,
+        $lower_bound ,
+        $prepare_time ,
+        $upper_bound ,
+        $avail_upper_bound ,
+        $payment_time,
+        $boss,
+        $allow_custom,
+        $minimum,
+        $pos_id,
+        $org_id
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->lower_bound = $lower_bound;
@@ -16,7 +27,7 @@ class factory extends limitable implements json_format {
         $this->upper_bound = $upper_bound;
         $this->avail_upper_bound = $avail_upper_bound;
         $this->payment_time = $payment_time;
-        $this->boss_id = $boss_id;
+        $this->boss = $boss;
         $this->allow_custom = $allow_custom;
         $this->minimum = $minimum;
         $this->pos_id = $pos_id;
@@ -34,15 +45,17 @@ class factory extends limitable implements json_format {
             '","upper_bound":"' . json_output::filter($this->upper_bound) .
             '","avail_upper_bound":"' . json_output::filter($this->avail_upper_bound) .
             '","minimum":"' . json_output::filter($this->minimum) .
-            '","boss_id":"' . json_output::filter($this->boss_id) .
-            '","organization_id":"' . json_output::filter($this->org_id) .
+            '","boss_id":"' . json_output::filter($this->boss->id) .
+            '","boss":' . $this->boss->get_json() .
+            ',"organization_id":"' . json_output::filter($this->org_id) .
             '","daily_produce":"' . json_output::filter($this->limit) .
             '","remaining":"' . json_output::filter($this->get_remaining()) .
             '","allow_custom":"' . ($this->allow_custom ? "true" : "false") . '"}';
         return $json;
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->id = $this->id;
         $this->name = $this->name;
         $this->lower_bound = $this->lower_bound;
@@ -57,4 +70,3 @@ class factory extends limitable implements json_format {
         $this->clone_limitable();
     }
 }
-?>
