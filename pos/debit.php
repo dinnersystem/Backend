@@ -32,9 +32,7 @@ function debit($row ,$req_id) {
     stream_set_timeout($fp);
 
     $data = "";
-    while (!feof($fp)) {
-        $data .= fgets($fp, 128);
-    }
+    while (!feof($fp)) { $data .= fgets($fp, 128); }
     fclose($fp);
 
     if($data == "success") return true;

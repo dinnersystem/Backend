@@ -6,7 +6,8 @@ function get_factory()
     $mysqli = $_SESSION['sql_server'];
     $sql = "SELECT F.id ,F.name ,
         F.lower_bound ,F.upper_bound ,F.pre_time ,F.payment_time ,F.avail_upper_bound ,
-        F.boss_id ,F.allow_custom ,F.minimum ,F.pos_id
+        F.boss_id ,F.allow_custom ,F.minimum ,F.pos_id ,
+        (SELECT organiztion_id FROM users AS U WHERE U.id = F.boss_id)
         FROM dinnersys.factory AS F;";
     
     $statement = $mysqli->prepare($sql);
@@ -14,14 +15,14 @@ function get_factory()
     $statement->store_result();
     $statement->bind_result($fid ,$fname ,
         $lower_bound ,$upper_bound ,$pre_time ,$payment_time ,$avail_upper_bound ,
-        $boss_id ,$allow_custom ,$minimum ,$pos_id
+        $boss_id ,$allow_custom ,$minimum ,$pos_id ,$org_id
     );
     
     $result = [];
     while($statement->fetch()) {
         $result[$fid] = new factory($fid ,$fname ,
             $lower_bound ,$pre_time ,$upper_bound ,$avail_upper_bound ,$payment_time ,
-            $boss_id ,$allow_custom ,$minimum , $pos_id
+            $boss_id ,$allow_custom ,$minimum , $pos_id ,$org_id
         );
     }
     

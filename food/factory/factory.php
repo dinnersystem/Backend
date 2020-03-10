@@ -7,7 +7,7 @@ use json\json_format;
 class factory extends limitable implements json_format {
     public function __construct($id ,$name ,
         $lower_bound ,$prepare_time ,$upper_bound ,$avail_upper_bound ,$payment_time ,
-        $boss_id ,$allow_custom ,$minimum ,$pos_id)
+        $boss_id ,$allow_custom ,$minimum ,$pos_id ,$org_id)
     {
         $this->id = $id;
         $this->name = $name;
@@ -20,6 +20,7 @@ class factory extends limitable implements json_format {
         $this->allow_custom = $allow_custom;
         $this->minimum = $minimum;
         $this->pos_id = $pos_id;
+        $this->org_id = $org_id;
     }
 
     public function get_json()
@@ -34,6 +35,7 @@ class factory extends limitable implements json_format {
             '","avail_upper_bound":"' . json_output::filter($this->avail_upper_bound) .
             '","minimum":"' . json_output::filter($this->minimum) .
             '","boss_id":"' . json_output::filter($this->boss_id) .
+            '","organization_id":"' . json_output::filter($this->organization_id) .
             '","daily_produce":"' . json_output::filter($this->limit) .
             '","remaining":"' . json_output::filter($this->get_remaining()) .
             '","allow_custom":"' . ($this->allow_custom ? "true" : "false") . '"}';
