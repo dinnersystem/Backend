@@ -13,6 +13,7 @@ class dish extends limitable implements json_format {
         $this->is_idle = $is_idle;
         $this->department = $department;
         $this->vege = $is_vege;
+        $this->best_seller = false;
 
         if(array_key_exists($department->factory->id ,best_seller())) {
             $seller = best_seller()[$department->factory->id];

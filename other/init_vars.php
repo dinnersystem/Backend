@@ -11,6 +11,7 @@ function init_vars() {
     if(array_key_exists("select_facto" ,$self->services)) { $cid = null; $everyone = true; }
     
     $_SESSION['organization'] = serialize(\user\get_organization());
+    $_SESSION["class"] = serialize(\user\get_class());
     $_SESSION['user'] = serialize(\user\get_user($cid ,$everyone));
     $_SESSION['factory'] = serialize(\food\get_factory());
     $_SESSION['department'] = serialize(\food\get_department());

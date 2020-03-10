@@ -19,6 +19,7 @@ class user implements json_format
     public $prev_sum = 0;
     public $PIN;
     public $daily_limit;
+    public $data_collected = false;
 
     public $money;
     public $card;

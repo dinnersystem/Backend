@@ -17,8 +17,7 @@ class factory extends limitable implements json_format
         $boss,
         $allow_custom,
         $minimum,
-        $pos_id,
-        $org_id
+        $pos_id
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -31,7 +30,6 @@ class factory extends limitable implements json_format
         $this->allow_custom = $allow_custom;
         $this->minimum = $minimum;
         $this->pos_id = $pos_id;
-        $this->org_id = $org_id;
     }
 
     public function get_json()
@@ -47,8 +45,7 @@ class factory extends limitable implements json_format
             '","minimum":"' . json_output::filter($this->minimum) .
             '","boss_id":"' . json_output::filter($this->boss->id) .
             '","boss":' . $this->boss->get_json() .
-            ',"organization_id":"' . json_output::filter($this->org_id) .
-            '","daily_produce":"' . json_output::filter($this->limit) .
+            ',"daily_produce":"' . json_output::filter($this->limit) .
             '","remaining":"' . json_output::filter($this->get_remaining()) .
             '","allow_custom":"' . ($this->allow_custom ? "true" : "false") . '"}';
         return $json;
@@ -63,7 +60,7 @@ class factory extends limitable implements json_format
         $this->upper_bound = $this->upper_bound;
         $this->avail_upper_bound = $this->avail_upper_bound;
         $this->payment_time = $this->payment_time;
-        $this->boss_id = $this->boss_id;
+        $this->boss = $this->boss;
         $this->allow_custom = $this->allow_custom;
         $this->minimum = $this->minimum;
         $this->pos_id = $this->pos_id;

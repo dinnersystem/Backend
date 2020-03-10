@@ -17,7 +17,7 @@ function get_factory()
         $boss_id ,$allow_custom ,$minimum ,$pos_id
     );
     
-    $user = unserialize($_SESSION["users"]);
+    $user = unserialize($_SESSION["user"]);
     $result = [];
     while($statement->fetch()) {
         $result[$fid] = new factory($fid ,$fname ,

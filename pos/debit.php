@@ -1,8 +1,11 @@
 <?php
 namespace pos;
 
-function debit($row ,$req_id) {
-    if(config()["enviroment"]["fake_bank"]["enable"] === true) return true;
+function debit($row)
+{
+    if (config()["enviroment"]["fake_bank"]["enable"] === true) {
+        return true;
+    }
 
     $self = unserialize($_SESSION["me"]);
     $bank = $self->bank_id;
@@ -14,11 +17,12 @@ function debit($row ,$req_id) {
         "password" => $password,
         "timestamp" => strval(time())
     ]);
-    $auth = hash("SHA512" ,$auth);   
+    $auth = hash("SHA512", $auth);
     
-    $fp = fsockopen($ip, $port ,$errno ,$errstr ,3);
-    if(!$fp) 
+    $fp = fsockopen($ip, $port, $errno, $errstr, 3);
+    if (!$fp) {
         throw new \Exception("POS is dead");
+    }
 
     $msg = [
         "operation" => "write" ,
@@ -32,16 +36,15 @@ function debit($row ,$req_id) {
     stream_set_timeout($fp);
 
     $data = "";
-    while (!feof($fp)) { $data .= fgets($fp, 128); }
+    while (!feof($fp)) {
+        $data .= fgets($fp, 128);
+    }
     fclose($fp);
 
-    if($data == "success") return true;
-    else 
-    {
-        announce("#### 有人繳款失敗，請注意 ####" ,$row->user);
+    if ($data == "success") {
+        return true;
+    } else {
+        announce("#### 有人繳款失敗，請注意 ####", $row->user);
         throw new \Exception("POS is dead");
     }
 }
-
-
-?>
