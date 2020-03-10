@@ -3,15 +3,14 @@ namespace pos;
 
 function debit($row)
 {
-    if (config()["enviroment"]["fake_bank"]["enable"] === true) {
+    if (config()["enviroment"]["fake_payment"]["enable"] === true) {
         return true;
     }
 
     $self = unserialize($_SESSION["me"]);
     $bank = $self->bank_id;
-    $ip = config()["bank"]["ip"];
-    $port = config()["bank"]["port"];
-    $password = config()["bank"]["password"];
+    $ip = config()["payment_server"]["ip"];
+    $port = config()["payment_server"]["port"];
 
     $auth = json_encode([
         "password" => $password,
