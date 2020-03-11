@@ -41,7 +41,7 @@ class user implements json_format {
         foreach($services as $key => $value) $this->services_output[] = $key;
     }
 
-    public function private_init($prev_sum ,$vege ,$login_id ,$bank_id ,$password ,$PIN ,$daily_limit ,$data_collected) {
+    public function private_init($prev_sum ,$vege ,$login_id ,$bank_id ,$password ,$PIN ,$daily_limit) {
         $this->prev_sum = $prev_sum;
         $this->is_vege = $vege;
         $this->login_id = $login_id;
