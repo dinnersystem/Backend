@@ -12,6 +12,7 @@ class factory extends limitable implements json_format
         $lower_bound ,
         $prepare_time ,
         $upper_bound ,
+        $avail_lower_bound ,
         $avail_upper_bound ,
         $payment_time,
         $boss,
@@ -24,6 +25,7 @@ class factory extends limitable implements json_format
         $this->lower_bound = $lower_bound;
         $this->prepare_time = $prepare_time;
         $this->upper_bound = $upper_bound;
+        $this->avail_lower_bound = $avail_lower_bound;
         $this->avail_upper_bound = $avail_upper_bound;
         $this->payment_time = $payment_time;
         $this->boss = $boss;
@@ -41,6 +43,7 @@ class factory extends limitable implements json_format
             '","prepare_time":"' . json_output::filter($this->prepare_time) .
             '","payment_time":"' . json_output::filter($this->payment_time) .
             '","upper_bound":"' . json_output::filter($this->upper_bound) .
+            '","avail_lower_bound":"' . json_output::filter($this->avail_lower_bound) .
             '","avail_upper_bound":"' . json_output::filter($this->avail_upper_bound) .
             '","minimum":"' . json_output::filter($this->minimum) .
             '","boss_id":"' . json_output::filter($this->boss->id) .

@@ -4,14 +4,15 @@ namespace order\select_order;
 function create_statement($param)
 {
     $syntax = [
-        ['esti_start'    ,'AND (? < LO.esti_recv_datetime)'                                        ,'s'],
-        ['esti_end'      ,'AND (? > LO.esti_recv_datetime)'                                        ,'s'],
+        ['esti_start'    ,'AND (? < LO.esti_recv_datetime)'                                                       ,'s'],
+        ['esti_end'      ,'AND (? > LO.esti_recv_datetime)'                                                       ,'s'],
 
-        ['factory_id'    ,'AND (? = DP.factory)'                                                   ,'i'],
-        ['factory'       ,'AND (? = F.boss_id)'                                                    ,'i' ,$param['user_id']],
-        ['person'        ,'AND (? = O.user_id)'                                                    ,'i' ,$param['user_id']],
-        ['class'         ,'AND ((SELECT U.class_id FROM users AS U WHERE U.id = ?) = U.class_id)'  ,'i' ,$param['user_id']], 
-        ['oid'           ,'AND (? = O.id)'                                                         ,'i']
+        ['factory_id'    ,'AND (? = DP.factory)'                                                                  ,'i'],
+        ['factory'       ,'AND (? = F.boss_id)'                                                                   ,'i' ,$param['user_id']],
+        ['person'        ,'AND (? = O.user_id)'                                                                   ,'i' ,$param['user_id']],
+        ['class'         ,'AND ((SELECT U.class_id FROM users AS U WHERE U.id = ?) = U.class_id)'                 ,'i' ,$param['user_id']], 
+        ['organization'  ,'AND ((SELECT U.organization_id FROM users AS U WHERE U.id = ?) = U.organization_id)'   ,'i' ,$param['user_id']], 
+        ['oid'           ,'AND (? = O.id)'                                                                        ,'i']
     ];
 
     $sql = normal_sql();
