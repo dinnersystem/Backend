@@ -27,8 +27,6 @@ function set_payment($req_id ,$password ,$ord_id ,$target)
         while($statement->fetch()) throw new \Exception($result);
         
         /* The part is extremely slow. Fuck you ,ventem */
-        $money = intval(\pos\get_pos()->money);
-        if($money < $row->money->charge) throw new \Exception("Not enough money.");
         \pos\debit($row);
 
         $mysqli->commit();

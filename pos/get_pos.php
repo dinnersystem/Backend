@@ -29,7 +29,8 @@ function get_pos() {
     while (!feof($fp)) $data .= fgets($fp, 128);
     fclose($fp); 
     $data = json_decode($data ,true);
-    if(array_key_exists("error" ,$data)) announce($data);
+    
+    if(array_key_exists("error" ,$data)) throw new \Exception(strval($data["error"]));
     $self->pos_init($data["money"] ,$data["cardno"]);
 
     return $self;

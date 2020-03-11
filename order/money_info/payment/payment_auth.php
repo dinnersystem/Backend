@@ -3,6 +3,9 @@ namespace order\money_info;
 
 function payment_auth($row ,$target ,$password ,$req_id)
 {
+	# order control
+	if($row == null) throw new \Exception("Order not found");
+
 	# password control
 	\punish\check($row->user->id ,"payment");
 	$raw_success = raw_auth($row ,$password);
