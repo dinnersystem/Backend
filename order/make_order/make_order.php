@@ -17,10 +17,10 @@ function make_order($target_id ,$dishes ,$esti_recv ,$type)
     # This might be vulnerable if dish->id could be any string.
     /*-------------------------------------------*/
 
-    $sql_command = "CALL make_order(? ,? ,? ,?);";
+    $sql_command = "CALL make_order(? ,? ,?);";
     $mysqli = $_SESSION['sql_server'];
     $statement = $mysqli->prepare($sql_command);
-    $statement->bind_param('iiss' , $uid ,$self_id ,$dstring, $esti_recv);
+    $statement->bind_param('iss' , $uid ,$dstring, $esti_recv);
     $statement->execute();
     $statement->store_result();
     $statement->bind_result($result);

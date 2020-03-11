@@ -68,7 +68,7 @@ class user implements json_format
 
     public static function get_guest()
     {
-        $user = new user(null, null, null, null);
+        $user = new user(null, null, null, null ,null);
         $user->prev_sum = 1;
         $user->full_init();
         return $user;
