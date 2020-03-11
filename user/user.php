@@ -19,7 +19,6 @@ class user implements json_format
     public $prev_sum = 0;
     public $PIN;
     public $daily_limit;
-    public $data_collected = false;
 
     public $money;
     public $card;
@@ -49,7 +48,7 @@ class user implements json_format
         }
     }
 
-    public function private_init($prev_sum, $vege, $login_id, $bank_id, $password, $PIN, $daily_limit, $data_collected)
+    public function private_init($prev_sum, $vege, $login_id, $bank_id, $password, $PIN, $daily_limit)
     {
         $this->prev_sum = $prev_sum;
         $this->is_vege = $vege;
@@ -58,7 +57,6 @@ class user implements json_format
         $this->password = $password;
         $this->PIN = $PIN;
         $this->daily_limit = $daily_limit;
-        $this->data_collected = $data_collected;
         $this->full_init();
     }
 
@@ -89,7 +87,6 @@ class user implements json_format
             '","prev_sum":"' . json_output::filter($this->prev_sum) .
             '","money":"' . json_output::filter($this->money) .
             '","card":"' . json_output::filter($this->card) .
-            '","data_collected":"' . ($this->data_collected ? "1" : "0") .
             '","valid_oper":' . json_output::array_to_json($this->services_output) . '}';
         return $data;
     }

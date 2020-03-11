@@ -15,7 +15,7 @@ function update_device($uid, $device)
 
 function get_data($login_id, $class ,$org)
 {
-    $sql_command = "SELECT U.id ,UI.name ,U.class_id ,UI.is_vegetarian ,UI.seat_id ,UI.bank_id ,U.prev_sum ,U.login_id ,U.password ,U.PIN ,UI.daily_limit ,UI.data_collected ,U.organization_id
+    $sql_command = "SELECT U.id ,UI.name ,U.class_id ,UI.is_vegetarian ,UI.seat_id ,UI.bank_id ,U.prev_sum ,U.login_id ,U.password ,U.PIN ,UI.daily_limit ,U.organization_id
         FROM `dinnersys`.`users` AS U ,`dinnersys`.`user_information` AS UI
         WHERE U.info_id = UI.id AND U.login_id = ?;";
     $mysqli = $_SESSION['sql_server'];
@@ -23,10 +23,10 @@ function get_data($login_id, $class ,$org)
     $statement->bind_param('s', $login_id);
     $statement->execute();
     $statement->store_result();
-    $statement->bind_result($id, $name, $class_id, $is_vege, $seat_id, $bank_id, $prev_sum, $login_id, $pswd, $PIN, $daily_limit, $data_collected ,$org_id);
+    $statement->bind_result($id, $name, $class_id, $is_vege, $seat_id, $bank_id, $prev_sum, $login_id, $pswd, $PIN, $daily_limit ,$org_id);
     if ($statement->fetch()) {
         $account = new user($id, $name, $class[strval($class_id)], $seat_id ,$org[$org_id]);
-        $account->private_init($prev_sum, new \food\vege($is_vege), $login_id, $bank_id, $pswd, $PIN, $daily_limit, $data_collected);
+        $account->private_init($prev_sum, new \food\vege($is_vege), $login_id, $bank_id, $pswd, $PIN, $daily_limit);
     }
     return $account;
 }
