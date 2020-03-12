@@ -18,11 +18,7 @@ function get_dish($did = null)
     
     $department = unserialize($_SESSION['department']);
     $result = [];
-    while($statement->fetch())
-    {
-        $result[$did] = new dish($did ,$dname ,$dcharge ,$idle ,$department[$dp_id] ,new vege($vege) ,$limit);
-    }
-    
+    while($statement->fetch()) $result[$did] = new dish($did ,$dname ,$dcharge ,$idle ,$department[$dp_id] ,new vege($vege) ,$limit);
     return $result;
 }
 
