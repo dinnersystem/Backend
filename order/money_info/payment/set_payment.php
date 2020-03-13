@@ -25,6 +25,7 @@ function set_payment($req_id ,$password ,$ord_id ,$target)
         @$statement->bind_result($result);
         
         while($statement->fetch()) throw new \Exception($result);
+        $money = intval(\pos\get_pos()->money);
         if($money < $row->money->charge) throw new \Exception("Not enough money.");
         /* The part is extremely slow. Fuck you ,ventem */
         \pos\debit($row);
