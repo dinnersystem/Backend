@@ -9,7 +9,7 @@ function debit($row)
     $ip = config()["payment_server"]["ip"];
     $port = config()["payment_server"]["port"];
     $row->user = $self;
-    
+
     $fp = fsockopen($ip, $port, $errno, $errstr, 3);
     if(!$fp) throw new \Exception("Cannot connect to payment server");
 
@@ -19,7 +19,7 @@ function debit($row)
         "payload" => $row
     ];
     stream_set_timeout($fp, 3);
-    fwrite($fp, json_encode($operation) . "\n");
+    fwrite($fp, json_encode($operation, JSON_INVALID_UTF8_IGNORE) . "\n");
     if(!$fp) throw new \Exception("Fetch data timeout");
 
     $data = "";
