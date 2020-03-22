@@ -30,12 +30,12 @@ function get_pos() {
     fclose($fp); 
     $json = json_decode($data ,true);
     if($json == null) {
-        announce("查詢失敗", unserialize($_SESSION["me"]));
+        announce("查詢 - 回傳空資料", unserialize($_SESSION["me"]));
         throw new \Exception("Invalid json from payment_server " . $data);
     }
     
     if (array_key_exists("error", $json)) {
-        announce("查詢失敗", unserialize($_SESSION["me"]));
+        announce("查詢 - 發生錯誤", unserialize($_SESSION["me"]));
         throw new \Exception(strval($json["error"]));
     }
     $self->pos_init($json["money"] ,$json["cardno"]);
