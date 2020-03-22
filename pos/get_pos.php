@@ -28,11 +28,11 @@ function get_pos() {
     $data = "";
     while (!feof($fp)) $data .= fgets($fp, 128);
     fclose($fp); 
-    $data = json_decode($data ,true);
-    if($data == null) throw new \Exception("Invalid json from payment_server " . strval($data));
+    $json = json_decode($data ,true);
+    if($json == null) throw new \Exception("Invalid json from payment_server " . strval($data));
     
-    if(array_key_exists("error" ,$data)) throw new \Exception(strval($data["error"]));
-    $self->pos_init($data["money"] ,$data["cardno"]);
+    if(array_key_exists("error" ,$json)) throw new \Exception(strval($json["error"]));
+    $self->pos_init($json["money"] ,$json["cardno"]);
 
     return $self;
 }
