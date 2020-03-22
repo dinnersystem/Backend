@@ -29,7 +29,7 @@ function get_pos() {
     while (!feof($fp)) $data .= fgets($fp, 128);
     fclose($fp); 
     $json = json_decode($data ,true);
-    if($json == null) throw new \Exception("Invalid json from payment_server " . strval($data));
+    if($json == null) throw new \Exception("Invalid json from payment_server " . $data);
     
     if(array_key_exists("error" ,$json)) throw new \Exception(strval($json["error"]));
     $self->pos_init($json["money"] ,$json["cardno"]);
