@@ -7,7 +7,7 @@ function get_user($cid ,$everyone)
     $me = unserialize($_SESSION["me"]);
     //load all the users might be seen.
     
-    $sql = "SELECT U.id ,UI.name ,U.class_id ,UI.seat_id
+    $sql = "SELECT U.id ,UI.name ,U.class_id ,UI.seat_id ,U.organization_id
         FROM users AS U ,user_information AS UI 
         WHERE U.info_id = UI.id
         AND (U.prev_sum >= 4 OR ? OR U.id = ? OR U.class_id = ?)";
@@ -17,14 +17,12 @@ function get_user($cid ,$everyone)
 
     $statement->execute();
     $statement->store_result();
-    $statement->bind_result($uid ,$name ,$cid ,$sno);
+    $statement->bind_result($uid ,$name ,$cid ,$sno ,$oid);
     
     $class = unserialize($_SESSION['class']);
+    $org = unserialize($_SESSION['organization']);
     $result = [];
-    while($statement->fetch())
-    {
-        $result[$uid] = new user($uid ,$name ,$class[$cid] ,$sno);
-    }
+    while($statement->fetch()) $result[$uid] = new user($uid ,$name ,$class[$cid] ,$sno ,$org[$oid]);
     
     return $result;
 }

@@ -6,7 +6,8 @@ class operation
     public static $oper = [
         'guest' => [
             'login' => 'login',
-            'logout' => 'logout'
+            'logout' => 'logout',
+            'show_organization' => 'show_organization'
         ],
         'normal' => [
             'change_password' => 'change_password',
@@ -43,7 +44,7 @@ class operation
         'admin' => [
             'change_password' => 'change_password',
             'update_dish' => 'update_dish',
-            'select_other' => 'show_order' ,
+            'select_prime' => 'show_order' ,
             'delete_everyone' => 'delete_order',
             'show_factory' => 'show_factory'
         ]

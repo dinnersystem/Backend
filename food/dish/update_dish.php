@@ -10,19 +10,22 @@ function update_dish($id ,$dname ,$csum ,$vege ,$idle ,$daily_limit)
     $vege = check_valid::vege_check($vege);
     $daily_limit = check_valid::white_list($daily_limit ,check_valid::$integers);
     if($idle != null) $idle = ($idle == 'true');
-
+    
     $vege = new vege(null ,$vege);
     $vege = $vege->number;
     
-    $row = get_dish($id)[$id];
+    $row = get_dish($id)[$id]; 
     if($row == null || !$row->updatable()) 
         throw new \Exception("Access denied.");
+    
+    $limit = fetch_dish($id)[$id];
+    $row->init_limit($limit["last_update"] ,$limit["sum"] ,$limit["limit"]);
     $same = (
         $row->name == $dname &&
         $row->charge == $csum  &&
         $row->vege->name == $vege &&
         $row->is_idle == $idle &&
-        $row->daily_produce == $daily_limit
+        $row->limit == $daily_limit
     );
     if($same) return "Nothing to update.";
 

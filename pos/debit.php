@@ -1,47 +1,34 @@
 <?php
 namespace pos;
 
-function debit($row ,$req_id) {
-    if(config()["enviroment"]["fake_bank"]["enable"] === true) return true;
+function debit($row)
+{
+    if (config()["enviroment"]["fake_payment"]["enable"] === true) return true;
 
     $self = unserialize($_SESSION["me"]);
-    $bank = $self->bank_id;
-    $ip = config()["bank"]["ip"];
-    $port = config()["bank"]["port"];
-    $password = config()["bank"]["password"];
+    $ip = config()["payment_server"]["ip"];
+    $port = config()["payment_server"]["port"];
+    $row->user = $self;
 
-    $auth = json_encode([
-        "password" => $password,
-        "timestamp" => strval(time())
-    ]);
-    $auth = hash("SHA512" ,$auth);   
-    
-    $fp = fsockopen($ip, $port ,$errno ,$errstr ,3);
-    if(!$fp) 
-        throw new \Exception("POS is dead");
+    $fp = fsockopen($ip, $port, $errno, $errstr, 3);
+    if(!$fp) throw new \Exception("Cannot connect to payment server");
 
-    $msg = [
+    $operation = [
         "operation" => "write" ,
-        "uid" => $bank,
-        "charge" => $row->money->charge,
-        "fid" => reset($row->buffet)->dish->department->factory->pos_id,
-        "auth" => $auth
+        "org_id" => strval($self->org->id),
+        "payload" => $row
     ];
-    $msg = json_encode($msg);
-    fwrite($fp, $msg . "\n");
-    stream_set_timeout($fp);
+    stream_set_timeout($fp, 3);
+    fwrite($fp, json_encode($operation, JSON_INVALID_UTF8_IGNORE) . "\n");
+    if(!$fp) throw new \Exception("Fetch data timeout");
 
     $data = "";
-    while (!feof($fp)) { $data .= fgets($fp, 128); }
+    while (!feof($fp)) $data .= fgets($fp, 128);
     fclose($fp);
+    $json = json_decode($data ,true);
 
-    if($data == "success") return true;
-    else 
-    {
-        announce("#### 有人繳款失敗，請注意 ####" ,$row->user);
-        throw new \Exception("POS is dead");
-    }
+    if ($data == null || array_key_exists("error", $json)) {
+        announce("#### 有人繳款失敗，請注意 ####", $row->user);
+        throw new \Exception(strval($json["error"]));
+    } else return true;
 }
-
-
-?>

@@ -4,8 +4,7 @@ namespace order\select_order;
 function normal_sql() {
     return "SELECT 
         O.id ,
-        LO.esti_recv_datetime ,
-        O.user_id ,O.order_maker ,
+        LO.esti_recv_datetime ,O.user_id ,
         MI.id ,MI.money_sum
 
         FROM orders AS O

@@ -8,10 +8,9 @@ use food\department;
 use food\vege;
 
 class order implements json_format {
-    public function __construct($id , $user, $order_maker, $recv_date ,$money) {
+    public function __construct($id , $user, $recv_date ,$money) {
         $this->id = $id;
         $this->user = $user;
-        $this->order_maker = $order_maker;
         $this->esti_recv = $recv_date;
         $this->money = $money;
         $this->dish = [];
@@ -41,7 +40,6 @@ class order implements json_format {
     public function get_json() {
         return '{"id" : "' . json_output::filter($this->id) . 
              '","user" : ' . $this->user->get_json() . 
-             ',"order_maker" : ' . $this->order_maker->get_json() . 
              ',"dish" : ' . json_output::array_to_json($this->dish) .  
              ',"money" : ' . $this->money->get_json() . 
              ',"recv_date" : "' . json_output::filter($this->esti_recv) . '"}';

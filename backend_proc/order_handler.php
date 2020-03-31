@@ -17,9 +17,9 @@ function __construct($input) {
 
 function process_order() {
     $cmd = $this->input['cmd'];
-    $func = unserialize($_SESSION['me'])->services[$cmd];
     $user = unserialize($_SESSION['me']);
-    if($func == null) return "Operation not allowed";
+    if(array_key_exists($cmd ,$user->services) == null) return "Operation not allowed";
+    else $func = $user->services[$cmd];
     $this->req_id = \other\log\make_log($user->id ,$func ,$_SERVER['REQUEST_URI'] ,serialize($this->input) ,\other\get_ip());
     try {
 	    return $this->$func();   # A very danger way to call a function. #
@@ -31,8 +31,10 @@ function process_order() {
 }
 
 function login() {
+    if(!array_key_exists("org_id", $this->input)) $this->input['org_id'] = "1";
     return \user\login\login($this->input['id'] ,
         $this->input['password'] ,
+        $this->input['org_id'] ,
         $this->input['device_id'] ,
         $this->req_id);
 }
@@ -51,27 +53,25 @@ function update_dish() {
 }
 
 function show_order() {
-    $param = $this->input;
-    $param['user_id'] = strval(unserialize($_SESSION['me'])->id);
+    $param = $this->input; $self = unserialize($_SESSION['me']);
+    $param['user_id'] = strval($self->id);
     switch($this->input['cmd']) {
         case 'select_self':
-            $param['person'] = true; 
-            break;
+            $param['person'] = true; break;
         case 'select_class':
-            $param['class'] = true; 
-            break;
+            $param['class'] = true; break;
         case 'select_facto':
-            $param['factory'] = true; 
-            break;
+            $param['factory'] = true; break;
         case 'select_other':
+            $param['organization'] = true; break;
+            break;
+        case 'select_prime':
             break;
     }
     return \order\select_order\select_order($param);
 }
 
-function make_order() {  
-    return \order\make_order\make_order(null ,$this->input['dish_id'] ,$this->input['time'] ,'self');
-}
+function make_order() { return \order\make_order\make_order($this->input['dish_id'] ,$this->input['time'] ,'self'); }
 
 function set_payment() {   
     $target = ($this->input['target'] == 'true');
@@ -94,10 +94,9 @@ function delete_order() {
 }
 
 function get_pos() { return \pos\get_pos(); }
-
 function error_report() { return \other\error_report($this->input['data']); }
-
-function show_factory(){ return \food\get_factory(); }
+function show_factory() { return \food\get_factory(); }
+function show_organization() { return \user\get_organization(); }
 
 }
 
