@@ -22,12 +22,12 @@ class factory extends limitable implements json_format
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->lower_bound = $lower_bound;
-        $this->prepare_time = $prepare_time;
-        $this->upper_bound = $upper_bound;
-        $this->avail_lower_bound = $avail_lower_bound;
-        $this->avail_upper_bound = $avail_upper_bound;
-        $this->payment_time = $payment_time;
+        $this->lower_bound = str_replace(".0", "", $lower_bound);
+        $this->prepare_time = str_replace(".0", "", $prepare_time);
+        $this->upper_bound = str_replace(".0", "", $upper_bound);
+        $this->avail_lower_bound = str_replace(".0", "", $avail_lower_bound);
+        $this->avail_upper_bound = str_replace(".0", "", $avail_upper_bound);
+        $this->payment_time = str_replace(".0", "", $payment_time);
         $this->boss = $boss;
         $this->allow_custom = $allow_custom;
         $this->minimum = $minimum;
