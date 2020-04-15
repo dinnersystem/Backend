@@ -14,7 +14,10 @@ function get_pos() {
     $port = config()["payment_server"]["port"];
     
     $fp = fsockopen($ip, $port ,$errno ,$errstr ,3);
-    if(!$fp) throw new \Exception("Cannot connect to payment server");
+    if (!$fp) {
+        announce("查詢 - Unable to connect to payment server", unserialize($_SESSION["me"]));
+        throw new \Exception("Cannot connect to payment server");
+    }
 
     $operation = [
         "operation" => "read",
