@@ -9,7 +9,7 @@ function announce($content ,$self)
     $data = '{
         "embed":{
             "title":"' . $content . '",
-            "description":"邪靈飛宇觀落陰，禍世災難害板中。",
+            "description":"The payment server has shown unexpected behavior.",
             "color":16711680,
             "fields":[
                 {
