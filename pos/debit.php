@@ -3,7 +3,6 @@ namespace pos;
 
 function debit($row)
 {
-    die(json_encode($row));
     if (config()["enviroment"]["fake_payment"]["enable"] === true) return true;
 
     $self = unserialize($_SESSION["me"]);
