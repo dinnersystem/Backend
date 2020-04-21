@@ -13,20 +13,21 @@ function get_pos() {
     $ip = config()["payment_server"]["ip"];
     $port = config()["payment_server"]["port"];
     
+    echo time() . "<br>";
     $fp = fsockopen($ip, $port ,$errno ,$errstr ,3);
     if (!$fp) {
         announce("查詢 - Unable to connect to payment server", unserialize($_SESSION["me"]));
         throw new \Exception("Cannot connect to payment server");
     }
-
+    echo time() . "<br>";
     $operation = [
         "operation" => "read",
         "org_id" => strval($self->org->id),
         "payload" => $self
     ];
-    stream_set_timeout($fp, 3);
     fwrite($fp, json_encode($operation) . "\n");
     if(!$fp) throw new \Exception("Fetch data timeout");
+    echo time() . "<br>";
 
     $data = "";
     while (!feof($fp)) $data .= fgets($fp, 128);
@@ -42,7 +43,6 @@ function get_pos() {
         throw new \Exception(strval($json["error"]));
     }
     $self->pos_init($json["money"] ,$json["cardno"]);
-
     return $self;
 }
 
