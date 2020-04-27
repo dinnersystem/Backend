@@ -12,7 +12,7 @@ function show_dish($sortby)
     $factory = get_factory(false);
     
     foreach($dlimit as $key => $row) $dish[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
-    foreach($flimit as $key => $row) $factory[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
+    foreach($flimit as $key => $row) if(array_key_exists($factory, $key)) $factory[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
 
     foreach($department as $dp) $dp->factory = $factory[$dp->factory->id];
     foreach($dish as $d) $d->department = $department[$d->department->id];
