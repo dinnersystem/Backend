@@ -1,7 +1,7 @@
 <?php
 namespace food;
 
-function get_factory()
+function get_factory($all)
 {
     $mysqli = $_SESSION['sql_server'];
     $self = unserialize($_SESSION["me"]);
@@ -37,22 +37,23 @@ function get_factory()
     $user = unserialize($_SESSION["user"]);
     $result = [];
     while ($statement->fetch()) {
-        $result[$fid] = new factory(
-            $fid,
-            $fname,
-            $lower_bound,
-            $pre_time,
-            $upper_bound,
-            $avail_lower_bound,
-            $avail_upper_bound,
-            $payment_time,
-            $user[$boss_id],
-            $allow_custom,
-            $minimum,
-            $pos_id,
-            $external,
-            $orderable
-        );
+        if($orderable || $all)
+            $result[$fid] = new factory(
+                $fid,
+                $fname,
+                $lower_bound,
+                $pre_time,
+                $upper_bound,
+                $avail_lower_bound,
+                $avail_upper_bound,
+                $payment_time,
+                $user[$boss_id],
+                $allow_custom,
+                $minimum,
+                $pos_id,
+                $external,
+                $orderable
+            );
     }
     
     return $result;
