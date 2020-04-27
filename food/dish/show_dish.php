@@ -9,7 +9,7 @@ function show_dish($sortby)
     $me = unserialize($_SESSION['me']);
     $dish = get_dish();
     $department = unserialize($_SESSION["department"]);
-    $factory = get_factory(true);
+    $factory = get_factory(false);
     
     foreach($dlimit as $key => $row) $dish[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
     foreach($flimit as $key => $row) $factory[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
