@@ -8,7 +8,8 @@ function get_factory()
 
     $sql = "SELECT F.id ,F.name ,
         F.lower_bound ,F.upper_bound ,F.pre_time ,F.payment_time ,F.avail_lower_bound ,F.avail_upper_bound ,
-        F.boss_id ,F.allow_custom ,F.minimum ,F.pos_id ,NOT (NOT F.activated AND O.max_external = O.external_sum)
+        F.boss_id ,F.allow_custom ,F.minimum ,F.pos_id ,F.external,
+        NOT (NOT F.activated AND O.max_external = O.external_sum) OR NOT F.external
         FROM factory AS F, users AS U, organization AS O
         WHERE F.boss_id = U.id AND U.organization_id = O.id AND O.id = ?;";
     
@@ -29,6 +30,7 @@ function get_factory()
         $allow_custom,
         $minimum,
         $pos_id,
+        $external,
         $orderable
     );
     
@@ -48,6 +50,7 @@ function get_factory()
             $allow_custom,
             $minimum,
             $pos_id,
+            $external,
             $orderable
         );
     }

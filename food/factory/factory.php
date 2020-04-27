@@ -19,6 +19,7 @@ class factory extends limitable implements json_format
         $allow_custom,
         $minimum,
         $pos_id,
+        $external,
         $orderable
     ) {
         $this->id = $id;
@@ -33,6 +34,7 @@ class factory extends limitable implements json_format
         $this->allow_custom = $allow_custom;
         $this->minimum = $minimum;
         $this->pos_id = $pos_id;
+        $this->external = $external;
         $this->orderable = $orderable;
     }
 
@@ -52,6 +54,7 @@ class factory extends limitable implements json_format
             '","boss":' . $this->boss->get_json() .
             ',"daily_produce":"' . json_output::filter($this->limit) .
             '","remaining":"' . json_output::filter($this->get_remaining()) .
+            '","external":"' . ($this->external ? "true" : "false") .
             '","orderable":"' . ($this->orderable ? "true" : "false") .
             '","allow_custom":"' . ($this->allow_custom ? "true" : "false") . '"}';
         return $json;
