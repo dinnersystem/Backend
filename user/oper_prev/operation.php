@@ -20,7 +20,6 @@ class operation
             'show_factory' => 'show_factory'
         ],
         'dinnerman' => [
-            'change_password' => 'change_password',
             'show_dish' => 'show_dish',
             'select_class' => 'show_order',
             'show_factory' => 'show_factory'
