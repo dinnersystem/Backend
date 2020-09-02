@@ -13,7 +13,7 @@ function init_vars() {
     $_SESSION['organization'] = serialize(\user\get_organization());
     $_SESSION["class"] = serialize(\user\get_class());
     $_SESSION['user'] = serialize(\user\get_user($cid ,$everyone));
-    $_SESSION['factory'] = serialize(\food\get_factory());
+    $_SESSION['factory'] = serialize(\food\get_factory(true));
     $_SESSION['department'] = serialize(\food\get_department());
     $_SESSION['dish'] = serialize(\food\get_dish());
     session_write_close();

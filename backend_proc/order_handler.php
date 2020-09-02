@@ -95,7 +95,7 @@ function delete_order() {
 
 function get_pos() { return \pos\get_pos(); }
 function error_report() { return \other\error_report($this->input['data']); }
-function show_factory() { return \food\get_factory(); }
+function show_factory() { return \food\get_factory(false); }
 function show_organization() { return \user\get_organization(); }
 
 }

@@ -7,26 +7,47 @@ function show_dish($sortby)
     $dlimit = fetch_dish();
 
     $me = unserialize($_SESSION['me']);
-    if(in_array("factory" ,$me->prev))  $dish = get_dish();
-    else $dish = unserialize($_SESSION["dish"]);
-
-    $department = unserialize($_SESSION["department"]);
-    $factory = unserialize($_SESSION["factory"]);
+    $dish = get_dish();
+    $department = get_department();
+    $factory = get_factory(false);
     
-    foreach($dlimit as $key => $row) $dish[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
-    foreach($flimit as $key => $row) $factory[$key]->init_limit($row["last_update"] ,$row["sum"] ,$row["limit"]);
+    foreach ($dlimit as $key => $row) {
+        $dish[$key]->init_limit($row["last_update"], $row["sum"], $row["limit"]);
+    }
+    foreach ($flimit as $key => $row) {
+        if (array_key_exists($key, $factory)) {
+            $factory[$key]->init_limit($row["last_update"], $row["sum"], $row["limit"]);
+        }
+    }
 
-    foreach($department as $dp) $dp->factory = $factory[$dp->factory->id];
-    foreach($dish as $d) $d->department = $department[$d->department->id];
+    foreach ($department as $dp) {
+        if (array_key_exists($dp->factory->id, $factory)) {
+            $dp->factory = $factory[$dp->factory->id];
+        } else {
+            $dp->factory = null;
+        }
+    }
 
-    if($sortby != "dish_id")
-        usort($dish, function ($a, $b) {
-            if($a->best_seller && !$b->best_seller) return false;
-            else if(!$a->best_seller && $b->best_seller) return true;
-            else if($a->sum == $b->sum) return $a->id > $b->id;
-            else return $a->sum < $b->sum;
+    $ans = [];
+    foreach ($dish as $d) {
+        if ($department[$d->department->id]->factory != null) {
+            $d->department = $department[$d->department->id];
+            $ans[] = $d;
+        }
+    }
+
+    if ($sortby != "dish_id") {
+        usort($ans, function ($a, $b) {
+            if ($a->best_seller && !$b->best_seller) {
+                return false;
+            } elseif (!$a->best_seller && $b->best_seller) {
+                return true;
+            } elseif ($a->sum == $b->sum) {
+                return $a->id > $b->id;
+            } else {
+                return $a->sum < $b->sum;
+            }
         });
-    return $dish;
+    }
+    return $ans;
 }
-
-?>
